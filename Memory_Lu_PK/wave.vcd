@@ -1,0 +1,374 @@
+$date
+	Wed Mar  5 12:52:11 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module mem_tb $end
+$var wire 8 ! rdData_sync [7:0] $end
+$var wire 8 " rdData_Async [7:0] $end
+$var parameter 32 # DEPTH $end
+$var parameter 36 $ NDEPTH $end
+$var parameter 32 % WIDTH $end
+$var reg 4 & addr [3:0] $end
+$var reg 1 ' clk $end
+$var reg 32 ( i [31:0] $end
+$var reg 1 ) rst $end
+$var reg 1 * we $end
+$var reg 8 + wrData [7:0] $end
+$var integer 32 , seed [31:0] $end
+$scope module my_ASYNC_mem1 $end
+$var wire 4 - addr [3:0] $end
+$var wire 1 * we $end
+$var wire 8 . wrData [7:0] $end
+$var wire 8 / rdData [7:0] $end
+$var parameter 32 0 DEPTH $end
+$var parameter 36 1 NDEPTH $end
+$var parameter 32 2 WIDTH $end
+$upscope $end
+$scope module my_SYNC_mem1 $end
+$var wire 4 3 addr [3:0] $end
+$var wire 1 ' clk $end
+$var wire 1 ) rst $end
+$var wire 1 * we $end
+$var wire 8 4 wrData [7:0] $end
+$var wire 8 5 wire_wrData [7:0] $end
+$var wire 1 6 wire_we $end
+$var wire 4 7 wire_addr [3:0] $end
+$var wire 8 8 rdData [7:0] $end
+$var parameter 32 9 DEPTH $end
+$var parameter 32 : WIDTH $end
+$scope module mem1 $end
+$var wire 8 ; wrData [7:0] $end
+$var wire 1 6 we $end
+$var wire 8 < rdData [7:0] $end
+$var wire 4 = addr [3:0] $end
+$var parameter 32 > DEPTH $end
+$var parameter 36 ? NDEPTH $end
+$var parameter 32 @ WIDTH $end
+$upscope $end
+$scope module my_addr1 $end
+$var wire 4 A D [3:0] $end
+$var wire 1 ' clk $end
+$var wire 1 ) rst $end
+$var parameter 32 B WIDTH $end
+$var reg 4 C Q [3:0] $end
+$upscope $end
+$scope module my_addr2 $end
+$var wire 1 * D $end
+$var wire 1 ' clk $end
+$var wire 1 ) rst $end
+$var parameter 32 D WIDTH $end
+$var reg 1 6 Q $end
+$upscope $end
+$scope module my_wrData $end
+$var wire 8 E D [7:0] $end
+$var wire 1 ' clk $end
+$var wire 1 ) rst $end
+$var parameter 32 F WIDTH $end
+$var reg 8 G Q [7:0] $end
+$upscope $end
+$upscope $end
+$scope task front_sweep_Write $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b1000 F
+b1 D
+b100 B
+b1000 @
+b10000 ?
+b100 >
+b1000 :
+b100 9
+b1000 2
+b10000 1
+b100 0
+b1000 %
+b10000 $
+b100 #
+$end
+#0
+$dumpvars
+b0 G
+b0 E
+b0 C
+b0 A
+b0 =
+bx <
+b0 ;
+bx 8
+b0 7
+06
+b0 5
+b0 4
+b0 3
+bx /
+b0 .
+b0 -
+bx ,
+b0 +
+0*
+0)
+bx (
+0'
+b0 &
+bx "
+bx !
+$end
+#5
+b0 !
+b0 8
+b0 <
+16
+b100100 5
+b100100 ;
+b100100 G
+b0 "
+b0 /
+1'
+b100100 +
+b100100 .
+b100100 4
+b100100 E
+b10010010000101010011001000000110 ,
+b1 (
+1*
+1)
+#10
+0'
+b10 (
+b1 &
+b1 -
+b1 3
+b1 A
+b10000001 +
+b10000001 .
+b10000001 4
+b10000001 E
+b1000000100010010101110011001111 ,
+#15
+b10 7
+b10 =
+b10 C
+b1001 5
+b1001 ;
+b1001 G
+1'
+b11 (
+b10 &
+b10 -
+b10 3
+b10 A
+b1001 +
+b1001 .
+b1001 4
+b1001 E
+b100100001001101010011000100 ,
+#20
+0'
+b100 (
+b11 &
+b11 -
+b11 3
+b11 A
+b1100011 +
+b1100011 .
+b1100011 4
+b1100011 E
+b110001111100000101010011110101 ,
+#25
+b1101 5
+b1101 ;
+b1101 G
+b100 7
+b100 =
+b100 C
+1'
+b101 (
+b100 &
+b100 -
+b100 3
+b100 A
+b1101 +
+b1101 .
+b1101 4
+b1101 E
+b10000110101110010111100100110010 ,
+#30
+0'
+b110 (
+b101 &
+b101 -
+b101 3
+b101 A
+b10001101 +
+b10001101 .
+b10001101 4
+b10001101 E
+b11000110110111111001011100001011 ,
+#35
+b110 7
+b110 =
+b110 C
+b1100101 5
+b1100101 ;
+b1100101 G
+1'
+b111 (
+b110 &
+b110 -
+b110 3
+b110 A
+b1100101 +
+b1100101 .
+b1100101 4
+b1100101 E
+b110010110000101000001011010000 ,
+#40
+0'
+b1000 (
+b111 &
+b111 -
+b111 3
+b111 A
+b10010 +
+b10010 .
+b10010 4
+b10010 E
+b1001001101110101000010010001 ,
+#45
+b1 5
+b1 ;
+b1 G
+b1000 7
+b1000 =
+b1000 C
+1'
+b1001 (
+b1000 &
+b1000 -
+b1000 3
+b1000 A
+b1 +
+b1 .
+b1 4
+b1 E
+b10000000111100111110000100011110 ,
+#50
+0'
+b1010 (
+b1001 &
+b1001 -
+b1001 3
+b1001 A
+b1101 +
+b1101 .
+b1101 4
+b1101 E
+b10000110110101111100101100000111 ,
+#55
+b1010 7
+b1010 =
+b1010 C
+b1110110 5
+b1110110 ;
+b1110110 G
+1'
+b1011 (
+b1010 &
+b1010 -
+b1010 3
+b1010 A
+b1110110 +
+b1110110 .
+b1110110 4
+b1110110 E
+b10111011001000111110111110011100 ,
+#60
+0'
+b1100 (
+b1011 &
+b1011 -
+b1011 3
+b1011 A
+b111101 +
+b111101 .
+b111101 4
+b111101 E
+b10011110100011011100101111101101 ,
+#65
+b11101101 5
+b11101101 ;
+b11101101 G
+b1100 7
+b1100 =
+b1100 C
+1'
+b1101 (
+b1100 &
+b1100 -
+b1100 3
+b1100 A
+b11101101 +
+b11101101 .
+b11101101 4
+b11101101 E
+b11110110110101000101010111001010 ,
+#70
+0'
+b1110 (
+b1101 &
+b1101 -
+b1101 3
+b1101 A
+b10001100 +
+b10001100 .
+b10001100 4
+b10001100 E
+b11000110001011011111010011000011 ,
+#75
+b1110 7
+b1110 =
+b1110 C
+b11111001 5
+b11111001 ;
+b11111001 G
+1'
+b1111 (
+b1110 &
+b1110 -
+b1110 3
+b1110 A
+b11111001 +
+b11111001 .
+b11111001 4
+b11111001 E
+b11111100111111011110011100101000 ,
+#80
+0'
+b10000 (
+b1111 &
+b1111 -
+b1111 3
+b1111 A
+b11000110 +
+b11000110 .
+b11000110 4
+b11000110 E
+b1100011001101110010001100001001 ,
+#85
+b11000110 5
+b11000110 ;
+b11000110 G
+b1111 7
+b1111 =
+b1111 C
+1'
+#90
+0'

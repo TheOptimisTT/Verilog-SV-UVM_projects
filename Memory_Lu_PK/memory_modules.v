@@ -1,3 +1,4 @@
+// Code your design here
 module aSync_mem #(parameter WIDTH = 8, parameter DEPTH = 16)
                   (
                     input we,
@@ -60,10 +61,9 @@ module Sync_mem_struct
                                                    .wrData(wire_wrData),
                                                    .rdData(rdData)
                                                    );
-
 endmodule
 
-module Sync_mem_beh #(parameter WIDTH = 8, parameter DEPTH = 16)
+module Sync_mem_behav #(parameter WIDTH = 8, parameter DEPTH = 16)
                   (
                     input we,
                     input clk,
@@ -80,6 +80,4 @@ module Sync_mem_beh #(parameter WIDTH = 8, parameter DEPTH = 16)
         end
     end
     assign rdData = !we ? local_mem[addr] : 0;
-
 endmodule
-

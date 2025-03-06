@@ -1,3 +1,5 @@
+// Code your testbench here
+// or browse Examples
 module mem_tb();
 
 localparam WIDTH = 8;
@@ -41,20 +43,27 @@ initial begin
     rst = 1'b1;
     we = 1'b1;
     i = 32'b0;
+  	wrData = 1'b1;
     front_sweep_Write();
     $display("Width param: %0d", WIDTH);
     $display("DEPTH param: %0d", DEPTH);
     $display("NDEPTH param: %0d", NDEPTH);
     #5;
-    $finish();
+
+  $display("ASYNC:");
+  $display(my_ASYNC_mem1.local_mem); // all Wrdata values are expected to be in the local_mem
+
+  $display("SYNC:");
+  $display(my_SYNC_mem1.mem1.local_mem); // every other data value is expected to be in the local_mem
+
+  $finish();
 end
 always #5 clk = ~clk;
 
 task front_sweep_Write();
     while(i < NDEPTH)begin
-        wrData = $urandom(seed);
+      wrData = 1 + ($random % 15);
         addr = i;
-        $display("i=%0d, wrdata = %0d",i, wrData);
         i = i+1'b1;
         #5; 
     end

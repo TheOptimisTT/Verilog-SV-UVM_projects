@@ -76,3 +76,21 @@ Processor Enchancement: Adding more opperands. Processor with 7 instrucitons and
 
 // Да видя презентацията за да видя промените в АЛУ, Новия Instruction Word и да добавя MUX-вете от новата схема.
 // (5-stage-pipeline, OP1_ID, OP0_ID, RSLT_ID, more muxes)
+
+
+================  18.03  ================
+================  18.03  ================
+================  18.03  ================
+
+
+Pipeline processor design
+Processor with 7 instrucitons and 2 opperand
+    ALU UPDATE:
+        -ADD, SUB
+    2port Mem updata -> REG FILE(3port mem)
+        - new file with 3port module
+    New data Forwarding for op1.
+    Word Update:
+        - Result_ID
+
+5 STAGE Pipeline 

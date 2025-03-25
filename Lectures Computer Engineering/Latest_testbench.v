@@ -1,4 +1,4 @@
-module Test_Bench_LU();
+module Test_Bench_LU2();
 
 	reg clk;
 	reg rst;
@@ -13,9 +13,9 @@ module Test_Bench_LU();
                     .ICODE(ICODE)
 						);
 
+	//====== Clock related block ======
 	initial begin
 		clk = 0;
-      ICODE = 15;
 		forever begin
 			#5;
 			clk = ~clk;
@@ -32,12 +32,12 @@ module Test_Bench_LU();
 	
 	initial begin
         $dumpfile("wave.vcd"); 
-        $dumpvars(3, Test_Bench_LU);
+        $dumpvars(3, Test_Bench_LU2);
 		addr_index = 0;
-		rst = 1;//CPU in reset
+		rst = 1;    //CPU in reset
 		ICODE = 0;
 		#12;
-		rst = 0; //CPU active
+		rst = 0;    //CPU active
       	#10;
 		forever begin
 			@(posedge clk);

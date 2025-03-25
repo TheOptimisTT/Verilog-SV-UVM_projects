@@ -2,7 +2,14 @@ module lu_processor#(parameter INTSR_SIZE = 27, parameter DATA_SIZE = 16) (
                         input clk,
                         input rst,
                         input VLD,
-                        input [INTSR_SIZE-1:0] INSTR_WORD // was 7:0
+                        input [INTSR_SIZE-1:0] INSTR_WORD,
+                        output LSVLD, 
+                        output LREQ,
+                        output SREQ,
+                        output [...] LSADDR, //FIXME
+                        output [...] SDATA, //FIXME
+                        input [...] LDATA, //FIXME
+                        input [...] LDRDY
                     );
     //==============================================
     //=============== STAGE 0 ======================

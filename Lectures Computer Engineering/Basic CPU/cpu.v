@@ -123,7 +123,7 @@ module lu_processor (
     end
 
     //S2 - S3 data forwarding
-    assign S2_S2S3DF_MUX = (S2_ADDR == S3_ADDR) ? S3_RESULT_REGISTER : S2_MEM_OUT_REGISTER;
+    assign S3_S2S3DF_MUX = (S2_ADDR == S3_ADDR) ? S3_RESULT_REGISTER : S2_MEM_OUT_REGISTER;
 
     always@(posedge clk or posedge rst)begin
         if(rst)begin
@@ -180,11 +180,5 @@ module syncMEM2P(
     end
     assign RD1 = mem[ADDR1_REG];
     
-    initial begin
-        #1000;
-        i=0;
-        for(i = 0; i< 256; i++)begin
-            $display("%0d", mem[i]);
-        end
-    end 
+   
 endmodule

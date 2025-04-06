@@ -1,3 +1,70 @@
+Tuesday, 25 February 2025
+
+ПК - лекция
+Процесор дизайн 
+
+Define our target application
+Analyze and define the target SW organization
+Defining or choose the programming language
+Analyze what instructions we need and how many - target application instruction histogram.
+Design the architecture
+Refine the architecture
+Optimize the common case
+Design the logic - Verilog, System Verilog
+Design verification -  System Verilog, UVM
+Synthesis, STA, Physical Design, Production, Testing
+Sales
+Design example - Instruction Histogram Co-Processor
+
+What is it? Why we need it?
+LOAD, STORE, ADD, SUB,  MULT, DIV, LOOP, JUMP, STALL …
+What we will illustrate ?
+Data path structure and design
+Going through the process of designing a pipeline
+Pipeline stages …
+Hazards
+Product Requirements Specifications
+Need to collect statistics of the instruction profile of a particular application,
+    how many times a particular instruction has been executed in the course of running a particular application
+Assume we have 8bit instruction code(256 instructions)
+We have to be able to process one instruction every clock cycle
+We have to process only when we have valid instructions, collect statistics only for instruction that have been executed
+But we also need the STALL cycles.
+Top Level System Design
+Block diagram (here)
+Start designing the Histogram Co-Processor
+ What we have to do?
+We need to count each executed instruction
+We have 256 instructions
+We need 256 counters
+Each counter consists of a register and an adder
+We need to accumulate statistics every cycle.
+256 x (64-bit registers + 64-bit adders)
+Instruction is decoded and one of the 256 counters is enabled for an update every cycle
+Pipeline Control
+Resource Control
+Data Path Control
+Instruction Flow Control
+Pipeline Hazards
+Structural hazard - compute resource conflicts
+Data hazard - data dependencies
+Control hazards
+Program counter changes
+Pipeline Stalls
+Pipeline flush
+Pipeline bubbles
+Others
+Data Hazards
+What is a data hazard? When data is needed before its available.
+The place where we fix data hazards is the first place we have a “ready” result.
+Data Hazards related to two commands with one in between are handled in stage  2 and 3
+Real Data Hazards are between stages: 3-4 2-4
+Not a real data hazard is 1-4. It can be fixed with a Bypass.
+Literature
+John Hennessy & David Paterson 
+‘Computer Architecture: A Quantitative Approach”
+‘Computer Organization and Design: The Hardware / Software Interface”
+
 =============== 11.03 ===============
 =============== 11.03 ===============
 =============== 11.03 ===============
@@ -118,3 +185,63 @@ Processor Enchancement: Loading operands
 
 Създаване и деклариране на Load & Store Controller
 Създаване И деклариране на Instruction Fetch stages (2)
+
+================  01.04  ================
+================    Л    ================
+================  01.04  ================
+
+Въвеждане на операцията Stall. Това което прави е да замразява регистрите в текущата стойност във 
+    всички Stages. Дргуго важно нещо е че ние ще спрем регистрите, но в даден момент ще имаме WE сигнал към паметта и 
+    трябва да се в кои ситуации това ще е проблем и кога няма да е проблем.
+
+Дефиниране на сигнал Stall. Ако има ресет се регистрите се ресетва. Другата проверка е дали има STALL ако има регистрите
+    запазват собствената стойност. Като се махне Stall-a pipeline-a започва да се движи нормално.
+
+Да вземем S0_addr(reg) -> S1_addr(reg) -> S2_addr(reg)
+    Това което направихме е че си дефинирахме сигнал стал и пред всеки вход слагаме 1 мултиплексор и това което прави е 
+        ако има сигнал Стал, мултиплексора избира изхода на регистъра следващия регистър и се презаписва. Ако няма стал
+        мултиплексора избира стойността на предходния регистър и стойността се подава по пайлаина.
+    При наличие на сигнал Стал, всики регистри работят на този принцип с изключение на няколко специални регистри като:
+        LSU(Д-мем), intrerupt, NOSTALL регистри и други. Идеята е че има регистри който не трябва да бъдат спирани.
+    Освен регистрите Стал трявба да маскира и някои от контролните сигнали като: WriteEnable. Ако не се маскират тези контролни 
+        сигнали може да доведат до непредвидени записвания и евентуални проблеми.
+    Stall сигнала зависи от това дали ще има LOAD операция, Ready(Load/Ready) сигнал... и други.
+        При LOAD => Stall = 1, 
+            Ready => Stall = 0;
+    Има един "тънък" момент и това е че декодирането на Лоад трябва да се случи един цъкъл по рано защото Стал ще се генерира
+        с един тактов цикъл по късно. Затова декодирането на LOAD се случва в LD_EXECSTAGE. Възможно е да се наложи да се декодира
+        още по рано. Това зависи от големината на pipeline-a.
+----
+Нека да предположим че имаме многоядрена системата (4 ядра). Както казахме, тези ядра работят на 1 GHZ, нашия конвеир работи доста
+    по бавно. До сега сме разглеждали само 1 ядро(1 конвеир), но сега имам 4 и всеки един от тях може да изпълнява процеси който да 
+    комуникират помежду си. Затова ни трябва общ КЕШ (lvl2) чрез който ядрата да обменят данни. Performance-a на нашата система ще
+    зависи от скоростта на интерфейса между ядрото и lvl1 Cache и lvl1 -> lvl2 cache. Цялото това движение на данните, това движение
+    е определящо за перформанса на системата. Причината АМД да изпреварят Интел е че те измислиха доста по ефентивен и бърз начин
+    за прехвърляне на данни между ядрата.
+----
+Flush. Как работи и какво се случва.
+
+Сега трябва да споменем и часта от процесора който отговаря за (Instruction Fetch) FLOW CONTROL, иначе казано последователността от 
+    инструкциите който се изпълняват. Понякога естествения flow на програмата трябва да се промени за да се изпълнят по приоритетни
+    операции, или просто да се изхвърлят излишни данни.
+
+По какъв начин ние променяме Program Counter-a ? 
+    Може да се промени от условни оператори:
+        If/Else, Case, Conditional Branch, Absolute Branch.
+
+Причината програм каунтъра в риск 5 архитектурата да се увеличава с 4 е че той работи с 32битова система или 4 байта, ако беше 16 битва
+    щеше да е +2. Следва че естествения инкремент на ПЦ е броя на байтове на архитектурата(битове).
+
+
+=== !!! === !!! === !!! === !!! === !!! === !!! === !!! ===
+Изпитни въпроси:
+    Защо се използва Stall ?
+    Защо се използва Flush ?
+    Защо ни трябва Pipeline ?
+    Видове Data dependencies ?
+    За какво служат компараторите ?
+    Какво обслужва pipeline-a с инкрементр-а?
+=== !!! === !!! === !!! === !!! === !!! === !!! === !!! ===
+
+
+
